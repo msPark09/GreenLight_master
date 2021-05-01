@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+	<!-- 로그인 sql -->
+	<select id="selectOne" parameterType="com.gl.master.model.login.LoginVo" resultType="Hashmap">
+		select count(*)as cnt from masterid where mid=#{mid} and mpw=#{mpw}
+	</select>
+</mapper>

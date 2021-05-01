@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- app.properties 읽어들이기:dataSource -->
+	<bean
+		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/spring/app.properties"></property>
+	</bean>
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- app.properties 를 읽어서 값 받기 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driverClassName.driver}"></property>
+		<property name="url" value="${url.url}"></property>
+		<property name="username" value="${username.id}"></property>
+		<property name="password" value="${password.pw}"></property>
+	</bean>
+	<!-- DB -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="${configLocation.config}"></property>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
+	<!-- 상품관련 db연결 -->
+	<bean id="com.gl.master.model.productDaoImp" class="com.gl.master.model.product.ProductDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- 주문관련 db연결 -->
+	<bean id="orderDaoImp" class="com.gl.master.model.order.OrderDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- 쿠폰관련 db연결 -->
+	<bean id="couponDaoImp" class="com.gl.master.model.coupon.CouponDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- 공지사항,팝업 관련 db연결 -->
+	<bean id="noticeDaoImp" class="com.gl.master.model.notice.NoticeDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- voc관련 db연결 -->
+	<bean id="vocDaoImp" class="com.gl.master.model.voc.VocDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- 이벤트 관련 db연결 -->
+	<bean id="eventDaoImp" class="com.gl.master.model.event.EventDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- 고객 관련 db연결 -->
+	<bean id="customerDaoImp" class="com.gl.master.model.customer.CustomerDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- Scheduler 관련 db연결 -->
+	<bean id="schedulerDao" class="com.gl.master.scheduler.SchedulerDao">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- login 관련 db연결 -->
+	<bean id="loginDao" class="com.gl.master.model.login.LoginDao">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- 슬라이드 관련 db연결 -->
+	<bean id="SlideDaoImp" class="com.gl.master.model.slide.SlideDaoImp">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+
+</beans>

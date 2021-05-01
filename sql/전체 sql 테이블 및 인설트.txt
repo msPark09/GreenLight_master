@@ -1,0 +1,190 @@
+--상품
+create table product(
+proid varchar2(30),
+proname varchar2(100),
+cat varchar2(20),
+loc varchar2(50),
+price number,
+minp number,
+maxp number,
+peris varchar2(50),
+exp varchar2(1000),
+img varchar2(30),
+thumb varchar2(30),
+discount number,
+point number,
+prio number,
+event number
+)
+--출발일&항공편
+create table prodetail(
+proid varchar2(30),
+startday varchar2(50),
+trans varchar2(50)
+)
+
+--카테고리
+create table cat(
+code varchar(20),
+name varchar(40)
+);
+insert into cat values('HD','핫딜');
+insert into cat values('KR','국내');
+insert into cat values('GL','해외');
+insert into cat values('HU','휴양지');
+insert into cat values('FM','가족여행');
+insert into cat values('FO','맛집탐방');
+insert into cat values('OD','당일치기');
+
+--지역
+create table loc(
+locname varchar(40),
+catcode varchar(20)
+);
+
+insert into loc values('일본-오키나와','GL');
+insert into loc values('동남아-랑카위','HU');
+insert into loc values('동남아-보홀','HU');
+insert into loc values('동남아-코사무이','HU');
+insert into loc values('동남아-루앙프라방','HU');
+insert into loc values('동남아-시아누크빌','HU');
+insert into loc values('동남아-롬복','HU');
+insert into loc values('일본-도쿄','GL');
+insert into loc values('일본-오사카','GL');
+insert into loc values('일본-큐슈','GL');
+insert into loc values('제주도','KR');
+insert into loc values('군산','KR');
+insert into loc values('여수','KR');
+
+--이벤트
+create table event(
+eid varchar2(30),
+ename varchar2(50),
+eimg varchar2(50),
+eexp varchar2(500),
+eurl varchar2(100),
+eprio number,
+eduring varchar2(30)
+)
+
+--주문
+create table oder(
+orderid varchar2(30),
+proid varchar2(30),
+customid varchar2(20),
+paycash number,
+payd varchar2(20),
+goperson number,
+cancel number,
+startday varchar2(50),
+trans varchar2(50)
+)
+--주문시퀀스
+CREATE SEQUENCE  "SCOTT"."ODERSEQUENCE"  MINVALUE 0 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+
+--고객
+CREATE TABLE customer(
+id varchar2(20),
+pw varchar2(20),
+name varchar2(20),
+phone number,
+cash number,
+tcash number,
+grade varchar2(20)
+);
+
+--쿠폰
+  create table coupon(
+  cupid varchar2(30),
+  cupname varchar2(50),
+  percent number,
+  customid varchar2(20),
+  cupperi varchar2(20)  
+  )
+  
+--쿠폰 시퀀스
+CREATE SEQUENCE seq_gcup
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1;
+
+ 
+--공지사항
+create table notice(
+notid varchar2(20),
+notitle varchar2(100),
+notcontent varchar2(1000),
+notfile varchar2(50),
+notday date
+)
+--voc
+create table voc(
+vocid varchar2(20),
+voctitle varchar2(100),
+voccontent varchar2(1000),
+customid varchar2(100),
+answer varchar2(1000),
+proid varchar2(30)
+)
+--voc 시퀀스
+CREATE SEQUENCE  "SCOTT"."SEQUENCE1"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
+--voc시퀀스(두가지 다 생성하세욥 어느건지 잘.....)
+CREATE SEQUENCE  "SCOTT"."SEQ_VOC"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE;
+
+--faq 기본 질문
+insert into voc values('FAQ_3_N','회원가입은 어떻게 하나요?','회원가입을 하고 싶은데 회원가입을 어떻게 해야 하나요?',null,
+'회원가입 버튼을 누른 후 회원가입 페이지에서 회원가입을 진행하시면 됩니다.',null);
+insert into voc values('FAQ_4_Y','회원탈퇴는 어떻게 하나요?','회원탈퇴 하고 싶은데 회원가입을 어떻게 해야 하나요?',null,
+'로그인 후 회원 탈퇴버튼을 누르면 회원탈퇴 신청이 됩니다. 관리자에서 확인 후 회원 탈퇴가 가능합니다. 탈퇴 후에는 고객님의 모든 정보를 삭제합니다.',null);
+
+--관리자 계정
+create table masterid(
+mid varchar2(30),
+mpw varchar2(30)
+)
+--관리자 계정 입력
+insert into masterid values('admin','admin1234!');
+
+--위시리스트 시퀀스
+CREATE SEQUENCE seq_wish
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1;
+
+--위시리스트
+create table wish(
+  wishid varchar2(20),
+  proid varchar2(20),
+  customid varchar2(20)
+);
+
+--장바구니 시퀀스
+CREATE SEQUENCE BASKET_SEQ 
+INCREMENT BY 1 
+START WITH 0 
+MINVALUE 0 
+NOMAXVALUE CACHE 2;
+--장바구니
+create table basket(
+  basketid varchar2(20),
+  proid varchar2(20),
+  customid varchar2(20),
+  PAYD date
+);
+
+--슬라이드 이미지
+create table mainimg(
+mainid varchar2(20),
+title varchar2(100),
+img varchar2(100)
+)
+
+--상품 리뷰
+create table review(
+reviewid varchar2(20),
+proid varchar2(30),
+customid varchar2(20),
+title varchar2(200),
+contents varchar2(1000),
+score number
+)

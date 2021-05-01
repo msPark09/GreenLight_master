@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="slide">
+	<!--슬라이드 sql -->
+	<select id="selectAll" resultType="com.gl.master.model.slide.SlideVo">
+		SELECT * FROM MAINIMG ORDER BY MAINID
+	</select>
+
+	<select id="selectOne" parameterType="String"
+		resultType="com.gl.master.model.slide.SlideVo">
+		SELECT * FROM MAINIMG WHERE MAINID=#{value}
+	</select>
+	
+	<insert id="insertOne" parameterType="com.gl.master.model.slide.SlideVo">
+		INSERT INTO MAINIMG VALUES
+		(#{mainid}, #{title}, #{img})
+	</insert>
+	
+	<update id="updateOne" parameterType="com.gl.master.model.slide.SlideVo">
+		UPDATE MAINIMG SET
+		title=#{title}, img=#{img, jdbcType=VARCHAR} WHERE MAINID=#{mainid}
+	</update>
+	
+	<delete id="deleteOne" parameterType="String">
+		DELETE FROM MAINIMG WHERE MAINID=#{value}
+	</delete>
+
+	
+</mapper>

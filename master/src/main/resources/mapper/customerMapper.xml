@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer">
+	<!-- 고객 sql -->
+	<select id="selectAll" resultType="com.gl.master.model.customer.CustomerVo">
+		SELECT * FROM customer ORDER
+		BY ID
+	</select>
+	<select id="selectOne" parameterType="String"
+		resultType="com.gl.master.model.customer.CustomerVo">
+		SELECT * FROM CUSTOMER WHERE ID=#{value}
+	</select>
+	<select id="selectCoupon" parameterType="String"
+		resultType="com.gl.master.model.coupon.CouponVo">
+		SELECT * FROM COUPON WHERE customid=#{value}
+	</select>
+	<delete id="deleteCoupon" parameterType="String">
+		delete from coupon where
+		cupid=#{value}
+	</delete>
+	<insert id="insertOne" parameterType="com.gl.master.model.customer.CustomerVo">
+		INSERT INTO CUSTOMER VALUES
+		(#{id}, #{pw}, #{name}, #{phone}, #{cash},#{tcash}, #{grade})
+	</insert>
+	<update id="updateOne" parameterType="com.gl.master.model.customer.CustomerVo">
+		UPDATE CUSTOMER SET
+		name=#{name}, phone=#{phone}, cash=#{cash}, tcash=#{tcash},
+		grade=#{grade} where ID=#{id}
+	</update>
+	<delete id="deleteOne" parameterType="String">
+		DELETE FROM CUSTOMER WHERE
+		id=#{value}
+	</delete>
+	<delete id="deleteOneCou" parameterType="String">
+		delete from coupon where customid=#{value}
+	</delete>
+	<select id="selectUser" parameterType="String"
+		resultType="com.gl.master.model.customer.CustomerVo">
+		select * from customer where id like #{value}
+	</select>
+</mapper>
